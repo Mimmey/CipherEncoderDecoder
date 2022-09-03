@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CeasarKey extends CipherKey {
+public class CeasarKey implements CipherKey {
     private int shift;
     private String keyString;
 }
