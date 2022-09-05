@@ -1,4 +1,4 @@
-package org.mimmey.cryptolab1.cipher.utils;
+package org.mimmey.cryptolab1.cipher.utils.io;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
+// Класс, записывающий текст в файл
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResourceWriter {
     public static void writeToFile(String text, String path) {

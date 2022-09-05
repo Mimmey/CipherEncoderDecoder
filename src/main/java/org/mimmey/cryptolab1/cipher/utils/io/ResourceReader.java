@@ -1,4 +1,4 @@
-package org.mimmey.cryptolab1.cipher.utils;
+package org.mimmey.cryptolab1.cipher.utils.io;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,7 @@ import java.io.UncheckedIOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+// Класс, считывающий текст из файла
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResourceReader {
     private static String asString(Resource resource) {
