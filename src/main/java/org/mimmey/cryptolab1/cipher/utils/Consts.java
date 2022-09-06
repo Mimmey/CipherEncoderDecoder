@@ -9,6 +9,8 @@ public class Consts {
     public final static int ALPHABET_POWER = 26;
     public final static char ALPHABER_STARTING_CHAR = 'a';
     public final static int RIJNDAEL_PRIME_POLYNOMIAL = 283;
+
+    public final static int RIJNDAEL_PRIME_POLYNOMIAL_POWER = 8;
     private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
     public static char[] getAlphabet() {

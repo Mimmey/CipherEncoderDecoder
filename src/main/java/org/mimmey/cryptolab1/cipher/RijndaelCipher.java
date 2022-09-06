@@ -16,7 +16,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
         return null;
     }
 
-    static class RijndaelInvTransformations {
+    public static class RijndaelInvTransformations {
 
         public void invSubBytes(byte[][] state, byte[][] sBox) {
         }
@@ -28,7 +28,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
         }
     }
 
-    static class RijndaelPreparations {
+    public static class RijndaelPreparations {
         public List<List<List<Byte>>> splitIntoBlocks(String text) {
             return null;
         }
@@ -38,7 +38,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
         }
     }
 
-    static class RindaelOps {
+    public static class RindaelOps {
 
         public int byteSum(int a, int b) {
             return a ^ b;
@@ -47,13 +47,13 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
         public int byteMult(int a, int b) {
             int[] aBits = intToBitsArray(a);
             int[] bBits = intToBitsArray(b);
-            int[] result = new int[1000];
+            int[] result = new int[Integer.SIZE];
             int m = powerOfPolynomial(aBits);
             int n = powerOfPolynomial(bBits);
 
             for (int i = 0; i <= m; i++) {
                 for (int j = 0; j <= n; j++) {
-                    result[i + j] += aBits[i] * bBits[j];
+                    result[Integer.SIZE - m - n - 1 + i + j] += aBits[Integer.SIZE - m - 1 + i] * bBits[Integer.SIZE - n - 1 + j];
                 }
             }
 
@@ -65,62 +65,67 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
                 }
             }
 
-            return byteMod(bitsArrayToInt(result), Consts.RIJNDAEL_PRIME_POLYNOMIAL);
+            return byteModRijndaelPolynomial(bitsArrayToInt(result));
         }
 
-        public int byteMod(int dividend, int divisor) {
+        public int byteModRijndaelPolynomial(int dividend) {
             int[] dividendBits = intToBitsArray(dividend);
-            int[] divisorBits = intToBitsArray(divisor);
-            int[] result = new int[32];
+            int[] divisorBits = intToBitsArray(Consts.RIJNDAEL_PRIME_POLYNOMIAL);
+            int[] result = new int[Integer.SIZE];
             int m = powerOfPolynomial(dividendBits);
-            int n = powerOfPolynomial(divisorBits);
+            int n = Consts.RIJNDAEL_PRIME_POLYNOMIAL_POWER;
 
             for (int i = m - n; i >= 0; i--) {
                 result[i] = dividendBits[i + n] / divisorBits[n];
                 for (int j = n; j >= 0; j--) {
-                    dividendBits[i + j] -= divisorBits[j] * result[i];
+                    dividendBits[Integer.SIZE - m - 1 + i + j]
+                            -= divisorBits[Integer.SIZE - n - 1 + j]
+                            * result[Integer.SIZE - 1 + i];
                 }
             }
 
             return bitsArrayToInt(dividendBits);
         }
 
-        private int[] intToBitsArray(int value) {
+        public int[] intToBitsArray(int value) {
             int[] bits = new int[Integer.SIZE];
-            int twoPower = 1 << Integer.SIZE - 1;
+            int twoPower = 1 << (Integer.SIZE - 1);
+            int i = 0;
 
-            for (int i = 0; i < Integer.SIZE; i++) {
-                bits[i] = (byte) (value / twoPower);
+            do {
+                bits[i] = value / twoPower;
                 value %= twoPower;
-                twoPower /= 2;
-            }
+                twoPower >>= 1;
+                twoPower = Math.abs(twoPower);
+                i++;
+            } while (twoPower > 0);
 
             return bits;
         }
 
-        private int bitsArrayToInt(int[] bits) {
+        public int bitsArrayToInt(int[] bits) {
             int result = 0;
-            int twoPower = 1 << Integer.SIZE - 1;
+            int twoPower = 1 << (Integer.SIZE - 1);
 
-            for (int i = 0; i < Integer.SIZE; i++) {
-                result += twoPower * bits[i];
-                twoPower /= 2;
+            for (int bit : bits) {
+                result += Math.abs(twoPower * bit);
+                twoPower >>= 1;
             }
 
             return result;
         }
 
-        private int powerOfPolynomial(int[] a) {
+        public int powerOfPolynomial(int[] a) {
             int pos = 0;
             while (a[pos] == 0) {
                 pos++;
             }
 
-            return Integer.SIZE - pos;
+            return Integer.SIZE - pos - 1;
         }
     }
 
-    static class RijndaelTransformations {
+    public static class RijndaelTransformations {
 
         public void addRoundKey(byte[][] state, byte[][] roundKey) {
         }
