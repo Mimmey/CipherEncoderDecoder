@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mimmey.cryptolab1.cipher.RijndaelCipher;
 
-public class RindaelTest {
+public class RijndaelTest {
     @Test
     public void checkByteSum() {
         int a = 87;
         int b = 131;
 
-        Assertions.assertEquals(212, new RijndaelCipher.RindaelOps().byteSum(a, b));
+        Assertions.assertEquals(212, new RijndaelCipher.RijndaelOps().byteSum(a, b));
     }
 
     @Test
@@ -18,7 +18,7 @@ public class RindaelTest {
         int a = 87;
         int b = 131;
 
-        Assertions.assertEquals(193, new RijndaelCipher.RindaelOps().byteMult(a, b));
+        Assertions.assertEquals(193, new RijndaelCipher.RijndaelOps().byteMult(a, b));
     }
 
 //    @Test
@@ -37,7 +37,7 @@ public class RindaelTest {
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 1, 0, 1, 0, 1, 1, 1}, new RijndaelCipher.RindaelOps().intToBitsArray(a));
+                0, 1, 0, 1, 0, 1, 1, 1}, new RijndaelCipher.RijndaelOps().intToBitsArray(a));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class RindaelTest {
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 1, 0, 1, 0, 1, 1, 1};
 
-        Assertions.assertEquals(87, new RijndaelCipher.RindaelOps().bitsArrayToInt(array));
+        Assertions.assertEquals(87, new RijndaelCipher.RijndaelOps().bitsArrayToInt(array));
     }
 }

@@ -22,12 +22,12 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
         // Вставляем ключевое слово на позицию после сдвига
         for (char c : cipherWord) {
-            if (isUsed[c - Consts.ALPHABER_STARTING_CHAR]) {
+            if (isUsed[c - Consts.ALPHABET_STARTING_CHAR]) {
                 continue;
             }
 
             encodedAlphabet[encodedAlphabetIter] = c;
-            isUsed[(c - Consts.ALPHABER_STARTING_CHAR)] = true;
+            isUsed[(c - Consts.ALPHABET_STARTING_CHAR)] = true;
             encodedAlphabetIter++;
         }
 
