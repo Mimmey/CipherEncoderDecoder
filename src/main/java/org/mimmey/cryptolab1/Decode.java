@@ -11,7 +11,11 @@ public class Decode {
         // смещение и ключевое слово
         String inputPath = args[0];
         String outputPath = args[1];
+
+        // Обязательно меньше длины алфавита
         int shift = Integer.parseInt(args[2]);
+
+        // Обязательно состоит из букв алфавита
         String key = args[3];
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();

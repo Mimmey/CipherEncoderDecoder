@@ -17,8 +17,8 @@ public class CeasarWithKeywordTest {
         String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/iconicciphertext.txt";
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
-        int shift = 3;
-        String key = "ШИФРОВКА";
+        int shift = 5;
+        String key = "ВЫЖИВШИЙ";
 
         String expectedResult = ResourceReader.readFromFile(expectedOutputPath);
 
@@ -44,8 +44,8 @@ public class CeasarWithKeywordTest {
         String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/iconictext.txt";
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
-        int shift = 3;
-        String key = "ШИФРОВКА";
+        int shift = 5;
+        String key = "ВЫЖИВШИЙ";
 
         String expectedResult = ResourceReader.readFromFile(expectedOutputPath);
 
