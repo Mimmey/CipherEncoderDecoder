@@ -52,14 +52,14 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
     @Override
     public String encode(String text, CeasarWithKeywordKey cipherKey) {
         String alphabet = String.valueOf(CeasarWithKeywordConsts.getAlphabet());
-        char[] encodedAlphabet = getEncodedAlphabet(cipherKey);
+        String encodedAlphabet = String.valueOf(getEncodedAlphabet(cipherKey));
         char[] cText = text.toCharArray();
 
-        // Если символ является буквой - шифруем его;
+        // Если символ входит в алфавит - шифруем его;
         // Если нет - оставляем как есть
         for (int i = 0; i < cText.length; i++) {
-            cText[i] = Character.isLetter(cText[i])
-                    ? encodedAlphabet[alphabet.indexOf(cText[i])]
+            cText[i] = (alphabet.contains(String.valueOf(cText[i])))
+                    ? encodedAlphabet.charAt(alphabet.indexOf(cText[i]))
                     : cText[i];
         }
 
@@ -68,15 +68,15 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
     @Override
     public String decode(String text, CeasarWithKeywordKey cipherKey) {
-        char[] alphabet = CeasarWithKeywordConsts.getAlphabet();
+        String alphabet = new String(CeasarWithKeywordConsts.getAlphabet());
         String encodedAlphabet = String.valueOf(getEncodedAlphabet(cipherKey));
         char[] cText = text.toCharArray();
 
-        // Если символ является буквой - дешифруем его;
+        // Если символ входит в алфавит - дешифруем его;
         // Если нет - оставляем как есть
         for (int i = 0; i < cText.length; i++) {
-            cText[i] = Character.isLetter(cText[i])
-                    ? alphabet[encodedAlphabet.indexOf(cText[i])]
+            cText[i] = (alphabet.contains(String.valueOf(cText[i])))
+                    ? alphabet.charAt(encodedAlphabet.indexOf(cText[i]))
                     : cText[i];
         }
 
