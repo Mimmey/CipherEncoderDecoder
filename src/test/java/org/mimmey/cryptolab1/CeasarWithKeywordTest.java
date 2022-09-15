@@ -3,7 +3,7 @@ package org.mimmey.cryptolab1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mimmey.cryptolab1.cipher.CeasarWithKeywordCipher;
-import org.mimmey.cryptolab1.cipher.ciphercode.CeasarWithKeywordKey;
+import org.mimmey.cryptolab1.cipher.cipherkey.CeasarWithKeywordKey;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceReader;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceWriter;
 
@@ -12,24 +12,24 @@ public class CeasarWithKeywordTest {
     public void checkEncode() {
 
         // Задаем пути, ключи и текст
-        String inputPath = "textfiles/ceasar/encode/text.txt";
-        String outputPath = "textfiles/ceasar/encode/ciphertext.txt";
-        String expectedOutputPath = "textfiles/ceasar/encode/iconicciphertext.txt";
+        String inputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/text.txt";
+        String outputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/ciphertext.txt";
+        String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/iconicciphertext.txt";
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
-        int shift = 5;
-        String key = "diplomat";
+        int shift = 3;
+        String key = "ШИФРОВКА";
 
-        String expectedResult = ResourceReader.readFileToString(expectedOutputPath);
+        String expectedResult = ResourceReader.readFromFile(expectedOutputPath);
 
         // Считываем текст
-        String text = ResourceReader.readFileToString(inputPath);
+        String text = ResourceReader.readFromFile(inputPath);
 
         // Записываем в файл вывода результат
         ResourceWriter.writeToFile(cipher.encode(text, new CeasarWithKeywordKey(shift, key)), outputPath);
 
         // Получаем этот результат назад из файла вывода
-        String result = ResourceReader.readFileToString(outputPath);
+        String result = ResourceReader.readFromFile(outputPath);
 
         // Проверяем на корректность
         Assertions.assertEquals(expectedResult, result);
@@ -39,24 +39,24 @@ public class CeasarWithKeywordTest {
     public void checkDecode() {
 
         // Задаем пути, ключи и текст
-        String inputPath = "textfiles/ceasar/decode/ciphertext.txt";
-        String outputPath = "textfiles/ceasar/decode/text.txt";
-        String expectedOutputPath = "textfiles/ceasar/decode/iconictext.txt";
+        String inputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/ciphertext.txt";
+        String outputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/text.txt";
+        String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/iconictext.txt";
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
-        int shift = 5;
-        String key = "diplomat";
+        int shift = 3;
+        String key = "ШИФРОВКА";
 
-        String expectedResult = ResourceReader.readFileToString(expectedOutputPath);
+        String expectedResult = ResourceReader.readFromFile(expectedOutputPath);
 
         // Считываем текст
-        String text = ResourceReader.readFileToString(inputPath);
+        String text = ResourceReader.readFromFile(inputPath);
 
         // Записываем в файл вывода результат
         ResourceWriter.writeToFile(cipher.decode(text, new CeasarWithKeywordKey(shift, key)), outputPath);
 
         // Получаем этот результат назад из файла вывода
-        String result = ResourceReader.readFileToString(outputPath);
+        String result = ResourceReader.readFromFile(outputPath);
 
         // Проверяем на корректность
         Assertions.assertEquals(expectedResult, result);

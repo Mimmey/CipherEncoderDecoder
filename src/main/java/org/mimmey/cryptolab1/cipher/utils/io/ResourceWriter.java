@@ -11,8 +11,9 @@ import java.nio.file.Path;
 // Класс, записывающий текст в файл
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResourceWriter {
+
     public static void writeToFile(String text, String path) {
-        try (FileOutputStream outputStream = new FileOutputStream(Path.of("src/main/resources/" + path).toFile())) {
+        try (FileOutputStream outputStream = new FileOutputStream(Path.of(path).toFile())) {
             byte[] strToBytes = text.getBytes();
             outputStream.write(strToBytes);
         } catch (IOException e) {

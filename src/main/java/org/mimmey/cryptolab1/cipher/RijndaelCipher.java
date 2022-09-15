@@ -1,7 +1,7 @@
 package org.mimmey.cryptolab1.cipher;
 
-import org.mimmey.cryptolab1.cipher.ciphercode.RijndaelKey;
-import org.mimmey.cryptolab1.cipher.utils.Consts;
+import org.mimmey.cryptolab1.cipher.cipherkey.RijndaelKey;
+import org.mimmey.cryptolab1.cipher.utils.consts.RijndaelConsts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +57,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
                     int[] col = RijndaelOps.getColumn(state, j);
 
                     if (j == state.length - 1) {
-                        col = getRconFunc(col, Consts.RIJNDAEL_SBOX, Consts.RIJNDAEL_RCON[i], RijndaelOps.getColumn(state, 0));
+                        col = getRconFunc(col, RijndaelConsts.SBOX, RijndaelConsts.RCON[i], RijndaelOps.getColumn(state, 0));
                         previous = keys[i];
                     }
 
@@ -140,7 +140,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
 
         public static int byteModRijndaelPolynomial(int dividend) {
             int[] dividendBits = intToBitsArray(dividend);
-            int[] divisorBits = intToBitsArray(Consts.RIJNDAEL_PRIME_POLYNOMIAL);
+            int[] divisorBits = intToBitsArray(RijndaelConsts.PRIME_POLYNOMIAL);
             int[] result = new int[Integer.SIZE];
             int m = powerOfPolynomial(dividendBits);
             int n = powerOfPolynomial(divisorBits);
@@ -267,7 +267,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
         public void mixColumns(int[][] state) {
             for (int i = 0; i < state.length; i++) {
                 int[] col = RijndaelOps.getColumn(state, i);
-                int[] newCol = RijndaelOps.multMatrixOnVector(Consts.RIJNDAEL_MIX_COLUMNS_MATRIX, col);
+                int[] newCol = RijndaelOps.multMatrixOnVector(RijndaelConsts.MIX_COLUMNS_MATRIX, col);
                 RijndaelOps.setColumn(state, newCol, i);
             }
         }

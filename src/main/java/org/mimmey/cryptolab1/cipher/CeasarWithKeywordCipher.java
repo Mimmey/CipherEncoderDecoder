@@ -1,8 +1,8 @@
 package org.mimmey.cryptolab1.cipher;
 
 import lombok.NoArgsConstructor;
-import org.mimmey.cryptolab1.cipher.ciphercode.CeasarWithKeywordKey;
-import org.mimmey.cryptolab1.cipher.utils.Consts;
+import org.mimmey.cryptolab1.cipher.cipherkey.CeasarWithKeywordKey;
+import org.mimmey.cryptolab1.cipher.utils.consts.CeasarWithKeywordConsts;
 
 import java.util.Arrays;
 
@@ -12,22 +12,23 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
     // Метод, возвращающий зашифрованный алфавит (на месте букв алфавита стоят буквы, их шифрующие)
     private char[] getEncodedAlphabet(CeasarWithKeywordKey ceasarWithKeywordKey) {
-        boolean[] isUsed = new boolean[Consts.ALPHABET_POWER];
+        boolean[] isUsed = new boolean[CeasarWithKeywordConsts.ALPHABET_POWER];
         Arrays.fill(isUsed, false);
         char[] cipherWord = ceasarWithKeywordKey.getKeyString().toCharArray();
-        char[] alphabet = Consts.getAlphabet();
-        char[] encodedAlphabet = new char[Consts.ALPHABET_POWER];
+        char[] alphabet = CeasarWithKeywordConsts.getAlphabet();
+        char[] encodedAlphabet = new char[CeasarWithKeywordConsts.ALPHABET_POWER];
 
         int encodedAlphabetIter = ceasarWithKeywordKey.getShift();
+        String strAlphabet = new String(alphabet);
 
         // Вставляем ключевое слово на позицию после сдвига
         for (char c : cipherWord) {
-            if (isUsed[c - Consts.ALPHABET_STARTING_CHAR]) {
+            if (isUsed[strAlphabet.indexOf(c)]) {
                 continue;
             }
 
             encodedAlphabet[encodedAlphabetIter] = c;
-            isUsed[(c - Consts.ALPHABET_STARTING_CHAR)] = true;
+            isUsed[strAlphabet.indexOf(c)] = true;
             encodedAlphabetIter++;
         }
 
@@ -42,7 +43,7 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
             }
 
             encodedAlphabet[encodedAlphabetIter] = alphabet[i];
-            encodedAlphabetIter = ++encodedAlphabetIter % Consts.ALPHABET_POWER;
+            encodedAlphabetIter = ++encodedAlphabetIter % CeasarWithKeywordConsts.ALPHABET_POWER;
         }
 
         return encodedAlphabet;
@@ -50,9 +51,9 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
     @Override
     public String encode(String text, CeasarWithKeywordKey cipherKey) {
-        String alphabet = String.valueOf(Consts.getAlphabet());
+        String alphabet = String.valueOf(CeasarWithKeywordConsts.getAlphabet());
         char[] encodedAlphabet = getEncodedAlphabet(cipherKey);
-        char[] cText = text.toLowerCase().toCharArray();
+        char[] cText = text.toCharArray();
 
         // Если символ является буквой - шифруем его;
         // Если нет - оставляем как есть
@@ -67,9 +68,9 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
     @Override
     public String decode(String text, CeasarWithKeywordKey cipherKey) {
-        char[] alphabet = Consts.getAlphabet();
+        char[] alphabet = CeasarWithKeywordConsts.getAlphabet();
         String encodedAlphabet = String.valueOf(getEncodedAlphabet(cipherKey));
-        char[] cText = text.toLowerCase().toCharArray();
+        char[] cText = text.toCharArray();
 
         // Если символ является буквой - дешифруем его;
         // Если нет - оставляем как есть

@@ -2,32 +2,22 @@ package org.mimmey.cryptolab1.cipher.utils.io;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.FileCopyUtils;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UncheckedIOException;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 // Класс, считывающий текст из файла
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResourceReader {
-    private static String asString(Resource resource) {
-        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
-            return FileCopyUtils.copyToString(reader);
+
+    public static String readFromFile(String path) {
+        try (FileInputStream inputStream = new FileInputStream(Path.of(path).toFile())) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    public static String readFileToString(String path) {
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(path);
-        return asString(resource);
     }
 }
