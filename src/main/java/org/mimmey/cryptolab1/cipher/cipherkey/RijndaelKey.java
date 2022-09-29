@@ -1,9 +1,10 @@
 package org.mimmey.cryptolab1.cipher.cipherkey;
 
-import org.mimmey.cryptolab1.cipher.cipherkey.units.Sbox;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.List;
-
+@Getter
+@AllArgsConstructor
 public class RijndaelKey implements CipherKey {
-    List<Sbox> sboxList;
+    public String key;
 }

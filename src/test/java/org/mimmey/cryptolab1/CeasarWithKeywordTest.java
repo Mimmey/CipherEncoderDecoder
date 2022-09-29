@@ -6,15 +6,16 @@ import org.mimmey.cryptolab1.cipher.CeasarWithKeywordCipher;
 import org.mimmey.cryptolab1.cipher.cipherkey.CeasarWithKeywordKey;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceReader;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceWriter;
+import org.mimmey.cryptolab1.cipher.utils.paths.CeasarWithKeywordPaths;
 
 public class CeasarWithKeywordTest {
     @Test
     public void checkEncode() {
 
         // Задаем пути, ключи и текст
-        String inputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/text.txt";
-        String outputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/ciphertext.txt";
-        String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/encode/iconicciphertext.txt";
+        String inputPath = CeasarWithKeywordPaths.ENCODE_INPUT.getPath();
+        String outputPath = CeasarWithKeywordPaths.ENCODE_OUTPUT.getPath();
+        String expectedOutputPath = CeasarWithKeywordPaths.ENCODE_EXPECTED.getPath();
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
         int shift = 5;
@@ -39,9 +40,9 @@ public class CeasarWithKeywordTest {
     public void checkDecode() {
 
         // Задаем пути, ключи и текст
-        String inputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/ciphertext.txt";
-        String outputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/text.txt";
-        String expectedOutputPath = "src/main/resources/textfiles/ceasarwithkeyword/decode/iconictext.txt";
+        String inputPath = CeasarWithKeywordPaths.DECODE_INPUT.getPath();
+        String outputPath = CeasarWithKeywordPaths.DECODE_OUTPUT.getPath();
+        String expectedOutputPath = CeasarWithKeywordPaths.DECODE_EXPECTED.getPath();
 
         CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
         int shift = 5;
