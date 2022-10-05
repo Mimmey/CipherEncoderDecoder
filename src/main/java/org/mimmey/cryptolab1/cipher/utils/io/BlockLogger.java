@@ -7,6 +7,7 @@ public class BlockLogger {
 
     private String path;
 
+    // Вывести блок данных с шестнадцатеричными числами
     public void printBlockHex(int[][] block) {
 
         ResourceWriter.writeToFile("{\n", path);
@@ -24,10 +25,6 @@ public class BlockLogger {
         }
 
         ResourceWriter.writeToFile("}\n\n", path);
-    }
-
-    public void print(String str) {
-        ResourceWriter.writeToFile(str, path);
     }
 
     public void println(String str) {

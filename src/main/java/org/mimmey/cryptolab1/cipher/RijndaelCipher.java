@@ -133,7 +133,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
             ofbDecodeLogger.println("Input block: ");
             ofbDecodeLogger.printBlockHex(dataBlocks[i]);
 
-            needsEncipher = getDecodedBlock(needsEncipher, key, new BlockLogger(RijndaelPaths.OFB_DECODE_LOG.getPath()));
+            needsEncipher = getEncodedBlock(needsEncipher, key, new BlockLogger(RijndaelPaths.OFB_DECODE_LOG.getPath()));
             dataBlocks[i] = Ops.byteSumMatrices(dataBlocks[i], needsEncipher);
 
             ofbDecodeLogger.println("Output block: ");
@@ -174,9 +174,10 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
             cbcDecodeLogger.println("Input block: ");
             cbcDecodeLogger.printBlockHex(dataBlocks[i]);
 
-            dataBlocks[i] = getDecodedBlock(dataBlocks[i], key, new BlockLogger(RijndaelPaths.CBC_DECODE_LOG.getPath()));
-            dataBlocks[i] = Ops.byteSumMatrices(dataBlocks[i], needsEncipher);
+            int[][] curNeedsEncipher = needsEncipher.clone();
             needsEncipher = dataBlocks[i];
+            dataBlocks[i] = getDecodedBlock(dataBlocks[i], key, new BlockLogger(RijndaelPaths.CBC_DECODE_LOG.getPath()));
+            dataBlocks[i] = Ops.byteSumMatrices(dataBlocks[i], curNeedsEncipher);
 
             cbcDecodeLogger.println("Output block: ");
             cbcDecodeLogger.printBlockHex(dataBlocks[i]);
@@ -619,7 +620,7 @@ public class RijndaelCipher implements Cipher<RijndaelKey> {
             int[] compressedBlocks = uniteBlocks(blocks);
             byte[] bytes = intArrayToByteArray(compressedBlocks);
 
-            return new String(bytes, StandardCharsets.ISO_8859_1);
+            return new String(bytes, StandardCharsets.ISO_8859_1).trim();
         }
 
         // Разбить одномерный массив чисел на трехмерный

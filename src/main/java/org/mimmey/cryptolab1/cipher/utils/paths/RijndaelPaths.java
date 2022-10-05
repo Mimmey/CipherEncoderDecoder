@@ -14,7 +14,7 @@ public enum RijndaelPaths {
     CBC_DECODE_LOG("src/main/resources/textfiles/rijndael/log/cbc-decode-log.txt"),
 
     ECB_ENCODE_INPUT("src/main/resources/textfiles/rijndael/ecb/encode/input.txt"),
-    ECB_ENCODE_OUTPUT("src/main/resources/textfiles/rijndael/ecb/encode/output.txt"),
+    ECB_ENCODE_OUTPUT("src/main/resources/textfiles/rijndael/ecb/encode/outputtxt"),
     ECB_ENCODE_EXPECTED("src/main/resources/textfiles/rijndael/ecb/encode/expected.txt"),
 
     ECB_DECODE_INPUT("src/main/resources/textfiles/rijndael/ecb/decode/input.txt"),
