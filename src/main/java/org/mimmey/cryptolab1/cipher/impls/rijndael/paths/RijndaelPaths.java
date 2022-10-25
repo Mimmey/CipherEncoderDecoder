@@ -1,4 +1,4 @@
-package org.mimmey.cryptolab1.cipher.utils.paths;
+package org.mimmey.cryptolab1.cipher.impls.rijndael.paths;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

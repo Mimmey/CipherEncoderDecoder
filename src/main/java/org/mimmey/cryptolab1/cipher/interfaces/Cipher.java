@@ -1,6 +1,4 @@
-package org.mimmey.cryptolab1.cipher;
-
-import org.mimmey.cryptolab1.cipher.cipherkey.CipherKey;
+package org.mimmey.cryptolab1.cipher.interfaces;
 
 // Интерфейс, описывающий функционал любого шифра (шифрация + дешифрация)
 public interface Cipher<T extends CipherKey> {

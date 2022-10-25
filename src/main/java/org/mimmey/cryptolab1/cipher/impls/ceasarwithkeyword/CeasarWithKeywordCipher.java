@@ -1,8 +1,9 @@
-package org.mimmey.cryptolab1.cipher;
+package org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword;
 
 import lombok.NoArgsConstructor;
-import org.mimmey.cryptolab1.cipher.cipherkey.CeasarWithKeywordKey;
-import org.mimmey.cryptolab1.cipher.utils.consts.CeasarWithKeywordConsts;
+import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.cipherkey.CeasarWithKeywordKey;
+import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.consts.CeasarWithKeywordConsts;
+import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 
 import java.util.Arrays;
 

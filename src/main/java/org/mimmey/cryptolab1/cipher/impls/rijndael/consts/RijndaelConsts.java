@@ -1,4 +1,4 @@
-package org.mimmey.cryptolab1.cipher.utils.consts;
+package org.mimmey.cryptolab1.cipher.impls.rijndael.consts;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,8 @@
-package org.mimmey.cryptolab1.cipher.cipherkey;
+package org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.cipherkey;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.mimmey.cryptolab1.cipher.interfaces.CipherKey;
 
 // Реализация интерфейса "CiphferKey" для шифрования
 // по методу Цезаря с ключевым словом

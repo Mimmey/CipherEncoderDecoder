@@ -2,11 +2,11 @@ package org.mimmey.cryptolab1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mimmey.cryptolab1.cipher.CeasarWithKeywordCipher;
-import org.mimmey.cryptolab1.cipher.cipherkey.CeasarWithKeywordKey;
+import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.CeasarWithKeywordCipher;
+import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.cipherkey.CeasarWithKeywordKey;
+import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.paths.CeasarWithKeywordPaths;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceReader;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceWriter;
-import org.mimmey.cryptolab1.cipher.utils.paths.CeasarWithKeywordPaths;
 
 public class CeasarWithKeywordTest {
     @Test

@@ -1,10 +1,11 @@
 package org.mimmey.cryptolab1.main.rijndael.ofb;
 
-import org.mimmey.cryptolab1.cipher.RijndaelCipher;
-import org.mimmey.cryptolab1.cipher.cipherkey.RijndaelKey;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.RijndaelCipherMode;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.RijndaelOfbMode;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.cipherkey.RijndaelKey;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.paths.RijndaelPaths;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceReader;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceWriter;
-import org.mimmey.cryptolab1.cipher.utils.paths.RijndaelPaths;
 
 public class Decode {
     public static void main(String[] args) {
@@ -16,8 +17,8 @@ public class Decode {
         String outputPath = args.length > 2 ? args[2] : RijndaelPaths.OFB_DECODE_OUTPUT.getPath();
 
 
-        RijndaelCipher cipher = new RijndaelCipher();
+        RijndaelCipherMode cipher = new RijndaelOfbMode();
         String text = ResourceReader.readFromFile(inputPath);
-        ResourceWriter.writeToFile(cipher.ofbDecode(text, new RijndaelKey(key)), outputPath);
+        ResourceWriter.writeToFile(cipher.decode(text, new RijndaelKey(key)), outputPath);
     }
 }
