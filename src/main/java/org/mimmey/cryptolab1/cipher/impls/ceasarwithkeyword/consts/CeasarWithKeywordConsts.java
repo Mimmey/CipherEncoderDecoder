@@ -3,7 +3,6 @@ package org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.consts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-// Необходимые константы
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CeasarWithKeywordConsts {
     private final static char[] ALPHABET =

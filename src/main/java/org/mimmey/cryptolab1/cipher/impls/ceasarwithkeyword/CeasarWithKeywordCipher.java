@@ -7,11 +7,9 @@ import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 
 import java.util.Arrays;
 
-// Реализация алгоритма Цезаря с ключевым словом
 @NoArgsConstructor
 public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
 
-    // Метод, возвращающий зашифрованный алфавит (на месте букв алфавита стоят буквы, их шифрующие)
     private char[] getEncodedAlphabet(CeasarWithKeywordKey ceasarWithKeywordKey) {
         boolean[] isUsed = new boolean[CeasarWithKeywordConsts.ALPHABET_POWER];
         Arrays.fill(isUsed, false);
@@ -22,7 +20,6 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
         int encodedAlphabetIter = ceasarWithKeywordKey.getShift();
         String strAlphabet = new String(alphabet);
 
-        // Вставляем ключевое слово на позицию после сдвига
         for (char c : cipherWord) {
             if (isUsed[strAlphabet.indexOf(c)]) {
                 continue;
@@ -33,11 +30,9 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
             encodedAlphabetIter++;
         }
 
-        // Обозначаем границы слова внутри массива
         int startWord = ceasarWithKeywordKey.getShift();
         int endWord = encodedAlphabetIter;
 
-        // Заполняем массив остальными буквами алфавита, начиная со следующего после слова символа
         for (int i = 0; encodedAlphabetIter >= endWord || encodedAlphabetIter < startWord; i++) {
             if (isUsed[i]) {
                 continue;
@@ -56,8 +51,6 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
         String encodedAlphabet = String.valueOf(getEncodedAlphabet(cipherKey));
         char[] cText = text.toCharArray();
 
-        // Если символ входит в алфавит - шифруем его;
-        // Если нет - оставляем как есть
         for (int i = 0; i < cText.length; i++) {
             cText[i] = (alphabet.contains(String.valueOf(cText[i])))
                     ? encodedAlphabet.charAt(alphabet.indexOf(cText[i]))
@@ -73,8 +66,6 @@ public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
         String encodedAlphabet = String.valueOf(getEncodedAlphabet(cipherKey));
         char[] cText = text.toCharArray();
 
-        // Если символ входит в алфавит - дешифруем его;
-        // Если нет - оставляем как есть
         for (int i = 0; i < cText.length; i++) {
             cText[i] = (alphabet.contains(String.valueOf(cText[i])))
                     ? alphabet.charAt(encodedAlphabet.indexOf(cText[i]))
