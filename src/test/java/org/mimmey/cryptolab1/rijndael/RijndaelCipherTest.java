@@ -2,19 +2,18 @@ package org.mimmey.cryptolab1.rijndael;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mimmey.cryptolab1.cipher.RijndaelCipher;
-import org.mimmey.cryptolab1.cipher.utils.consts.RijndaelConsts;
-import org.mimmey.cryptolab1.cipher.utils.io.BlockLogger;
-import org.mimmey.cryptolab1.cipher.utils.paths.RijndaelPaths;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.RijndaelCipherMode;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.RijndaelEcbMode;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class RijndaelCipherTest {
 
+    private static RijndaelCipherMode rijndaelCipherMode;
+
     @BeforeAll
-    public static void setSBoxes() {
-        RijndaelCipher.setSBox(RijndaelConsts.SBOX);
-        RijndaelCipher.setInvSBox(RijndaelConsts.INV_SBOX);
+    public static void setMode() {
+        rijndaelCipherMode = new RijndaelEcbMode();
     }
 
     @Test
@@ -40,7 +39,7 @@ public class RijndaelCipherTest {
                 {0x1d, 0xfb, 0x97, 0x32}
         };
 
-        block = RijndaelCipher.getEncodedBlock(block, key, new BlockLogger(RijndaelPaths.ECB_ENCODE_LOG.getPath()));
+        block = rijndaelCipherMode.getEncodedBlock(block, key);
 
         assertArrayEquals(expected, block);
     }
@@ -68,7 +67,7 @@ public class RijndaelCipherTest {
                 {0xa8, 0x8d, 0xa2, 0x34}
         };
 
-        block = RijndaelCipher.getDecodedBlock(block, key, new BlockLogger(RijndaelPaths.ECB_DECODE_LOG.getPath()));
+        block = rijndaelCipherMode.getDecodedBlock(block, key);
 
         assertArrayEquals(expected, block);
     }

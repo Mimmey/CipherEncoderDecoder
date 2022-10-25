@@ -1,19 +1,11 @@
 package org.mimmey.cryptolab1.rijndael;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mimmey.cryptolab1.cipher.RijndaelCipher;
-import org.mimmey.cryptolab1.cipher.utils.consts.RijndaelConsts;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.RijndaelKeyTransformations;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class KeyTransformationsTest {
-
-    @BeforeAll
-    public static void setSBoxes() {
-        RijndaelCipher.setSBox(RijndaelConsts.SBOX);
-        RijndaelCipher.setInvSBox(RijndaelConsts.INV_SBOX);
-    }
 
     @Test
     public void checkGetRconFunc() {
@@ -23,7 +15,7 @@ public class KeyTransformationsTest {
 
         int[] expected = new int[]{0xa0, 0xfa, 0xfe, 0x17};
 
-        assertArrayEquals(expected, RijndaelCipher.KeyTransformations.getRconFunc(col, rconCol, additionalCol));
+        assertArrayEquals(expected, RijndaelKeyTransformations.getRconFunc(col, rconCol, additionalCol));
     }
 
     @Test
@@ -56,7 +48,7 @@ public class KeyTransformationsTest {
                 }
         };
 
-        int[][][] result = RijndaelCipher.KeyTransformations.getKeyExpansion(array);
+        int[][][] result = RijndaelKeyTransformations.getKeyExpansion(array);
 
         assertArrayEquals(expected[0], result[0]);
         assertArrayEquals(expected[1], result[1]);

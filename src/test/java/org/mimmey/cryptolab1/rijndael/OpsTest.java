@@ -1,20 +1,14 @@
 package org.mimmey.cryptolab1.rijndael;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mimmey.cryptolab1.cipher.RijndaelCipher;
-import org.mimmey.cryptolab1.cipher.utils.consts.RijndaelConsts;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelLowLevelOperations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelMathOperations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelSpecificOperations;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OpsTest {
-
-    @BeforeAll
-    public static void setSBoxes() {
-        RijndaelCipher.setSBox(RijndaelConsts.SBOX);
-        RijndaelCipher.setInvSBox(RijndaelConsts.INV_SBOX);
-    }
 
     @Test
     public void checkIntToBitsArray() {
@@ -25,7 +19,7 @@ public class OpsTest {
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 1, 0, 1, 0, 1, 1, 1
-        }, RijndaelCipher.Ops.intToBitsArray(a));
+        }, RijndaelLowLevelOperations.intToBitsArray(a));
     }
 
     @Test
@@ -37,7 +31,7 @@ public class OpsTest {
                 0, 1, 0, 1, 0, 1, 1, 1
         };
 
-        assertEquals(0b01010111, RijndaelCipher.Ops.bitsArrayToInt(arg));
+        assertEquals(0b01010111, RijndaelLowLevelOperations.bitsArrayToInt(arg));
     }
 
     @Test
@@ -47,7 +41,7 @@ public class OpsTest {
 
         int e = 0b11010100;
 
-        assertEquals(e, RijndaelCipher.Ops.byteSum(a, b));
+        assertEquals(e, RijndaelMathOperations.byteSum(a, b));
     }
 
     @Test
@@ -55,7 +49,7 @@ public class OpsTest {
         int[] arg = new int[]{0, 1, -5, 2, 4, -8};
         int[] e = new int[]{0, 1, 1, 0, 0, 0};
 
-        RijndaelCipher.Ops.byteSumForAllBits(arg);
+        RijndaelMathOperations.byteSumForAllBits(arg);
 
         assertArrayEquals(e, arg);
     }
@@ -67,7 +61,7 @@ public class OpsTest {
 
         int[] e = new int[]{1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0};
 
-        assertArrayEquals(e, RijndaelCipher.Ops.byteSumVectors(a, b));
+        assertArrayEquals(e, RijndaelMathOperations.byteSumVectors(a, b));
     }
 
     @Test
@@ -92,7 +86,7 @@ public class OpsTest {
                 {0, 0, 0, 0}
         };
 
-        assertArrayEquals(e, RijndaelCipher.Ops.byteSumMatrices(a, b));
+        assertArrayEquals(e, RijndaelMathOperations.byteSumMatrices(a, b));
     }
 
     @Test
@@ -102,7 +96,7 @@ public class OpsTest {
 
         int e = 0b11000001;
 
-        assertEquals(e, RijndaelCipher.Ops.byteMult(a, b));
+        assertEquals(e, RijndaelMathOperations.byteMult(a, b));
     }
 
     @Test
@@ -119,7 +113,7 @@ public class OpsTest {
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0b0101, 0b1100, 0b1101, 0b0011};
 
-        assertEquals(0b1101100, RijndaelCipher.Ops.multVectors(a, b));
+        assertEquals(0b1101100, RijndaelMathOperations.multVectors(a, b));
     }
 
     @Test
@@ -128,7 +122,7 @@ public class OpsTest {
         int col = 1;
         int[] expected = new int[]{2, 5, 8};
 
-        assertArrayEquals(expected, RijndaelCipher.Ops.getColumn(array, col));
+        assertArrayEquals(expected, RijndaelSpecificOperations.getColumn(array, col));
     }
 
     @Test
@@ -139,7 +133,7 @@ public class OpsTest {
 
         int[][] expected = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
-        RijndaelCipher.Ops.setColumn(array, col, colNum);
+        RijndaelSpecificOperations.setColumn(array, col, colNum);
         assertArrayEquals(expected, array);
     }
 
@@ -150,7 +144,7 @@ public class OpsTest {
 
         int[] expected = new int[]{3, 4, 5, 6, 1, 2};
 
-        RijndaelCipher.Ops.shiftRowLeft(array, shift);
+        RijndaelSpecificOperations.shiftRowLeft(array, shift);
         assertArrayEquals(expected, array);
     }
 
@@ -161,7 +155,7 @@ public class OpsTest {
 
         int[] expected = new int[]{5, 6, 1, 2, 3, 4};
 
-        RijndaelCipher.Ops.shiftRowRight(array, shift);
+        RijndaelSpecificOperations.shiftRowRight(array, shift);
         assertArrayEquals(expected, array);
     }
 
@@ -181,6 +175,6 @@ public class OpsTest {
                 0xae, 0xf1, 0xe5, 0x30
         };
 
-        assertArrayEquals(expected, RijndaelCipher.Ops.subBytesVector(array));
+        assertArrayEquals(expected, RijndaelSpecificOperations.subBytesVector(array));
     }
 }

@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Point {
-    int x;
-    int y;
+public class Fraction {
+    int numerator;
+    int denominator;
 
-    public static Point of(int x, int y) {
-        return new Point(x, y);
+    public static Fraction of(int numerator, int denominator) {
+        return new Fraction(numerator, denominator);
     }
 }

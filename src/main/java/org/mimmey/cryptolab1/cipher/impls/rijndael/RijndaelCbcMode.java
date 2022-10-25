@@ -2,7 +2,7 @@ package org.mimmey.cryptolab1.cipher.impls.rijndael;
 
 import org.mimmey.cryptolab1.cipher.impls.rijndael.cipherkey.RijndaelKey;
 import org.mimmey.cryptolab1.cipher.impls.rijndael.paths.RijndaelPaths;
-import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.KeyTransformations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.RijndaelKeyTransformations;
 import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelDataBlocksOperations;
 import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelMathOperations;
 import org.mimmey.cryptolab1.cipher.utils.io.BlockLogger;
@@ -17,7 +17,7 @@ public class RijndaelCbcMode extends RijndaelCipherMode {
 
     @Override
     public String encode(String text, RijndaelKey cipherKey) {
-        int[][] key = KeyTransformations.getKeyFromString(cipherKey.getKey());
+        int[][] key = RijndaelKeyTransformations.getKeyFromString(cipherKey.getKey());
         int[][][] dataBlocks = RijndaelDataBlocksOperations.getBlocksFromString(text);
         int[][] needsCipher = iv;
 
@@ -26,7 +26,7 @@ public class RijndaelCbcMode extends RijndaelCipherMode {
             encodeBlockLogger.printBlockHex(dataBlocks[i]);
 
             dataBlocks[i] = RijndaelMathOperations.byteSumMatrices(dataBlocks[i], needsCipher);
-            dataBlocks[i] = getEncodedBlock(dataBlocks[i], key, new BlockLogger(RijndaelPaths.CBC_ENCODE_LOG.getPath()));
+            dataBlocks[i] = getEncodedBlock(dataBlocks[i], key);
             needsCipher = dataBlocks[i];
 
             encodeBlockLogger.println("Output block: ");
@@ -38,7 +38,7 @@ public class RijndaelCbcMode extends RijndaelCipherMode {
 
     @Override
     public String decode(String text, RijndaelKey cipherKey) {
-        int[][] key = KeyTransformations.getKeyFromString(cipherKey.getKey());
+        int[][] key = RijndaelKeyTransformations.getKeyFromString(cipherKey.getKey());
         int[][][] dataBlocks = RijndaelDataBlocksOperations.getBlocksFromString(text);
         int[][] needsEncipher = iv;
 
@@ -48,7 +48,7 @@ public class RijndaelCbcMode extends RijndaelCipherMode {
 
             int[][] curNeedsEncipher = needsEncipher.clone();
             needsEncipher = dataBlocks[i];
-            dataBlocks[i] = getDecodedBlock(dataBlocks[i], key, new BlockLogger(RijndaelPaths.CBC_DECODE_LOG.getPath()));
+            dataBlocks[i] = getDecodedBlock(dataBlocks[i], key);
             dataBlocks[i] = RijndaelMathOperations.byteSumMatrices(dataBlocks[i], curNeedsEncipher);
 
             decodeBlockLogger.println("Output block: ");

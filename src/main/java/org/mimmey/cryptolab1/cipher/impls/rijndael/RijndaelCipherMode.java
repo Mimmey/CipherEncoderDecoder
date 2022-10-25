@@ -2,9 +2,9 @@ package org.mimmey.cryptolab1.cipher.impls.rijndael;
 
 import org.mimmey.cryptolab1.cipher.impls.rijndael.cipherkey.RijndaelKey;
 import org.mimmey.cryptolab1.cipher.impls.rijndael.consts.RijndaelConsts;
-import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.InvTransformations;
-import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.KeyTransformations;
-import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.Transformations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.RijndaelInvTransformations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.RijndaelKeyTransformations;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.transformations.RijndaelTransformations;
 import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelLowLevelOperations;
 import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 import org.mimmey.cryptolab1.cipher.utils.io.BlockLogger;
@@ -25,62 +25,62 @@ public abstract class RijndaelCipherMode implements Cipher<RijndaelKey> {
         this.iv = RijndaelConsts.IV;
     }
 
-    public final int[][] getEncodedBlock(int[][] block, int[][] key, BlockLogger logger) {
-        int[][][] keySchedule = KeyTransformations.getKeyExpansion(key);
+    public final int[][] getEncodedBlock(int[][] block, int[][] key) {
+        int[][][] keySchedule = RijndaelKeyTransformations.getKeyExpansion(key);
 
-        logger.println("NEW BLOCK");
-        logger.println("KeySchedule: ");
+        encodeBlockLogger.println("NEW BLOCK");
+        encodeBlockLogger.println("KeySchedule: ");
 
         for (int[][] ints : keySchedule) {
-            logger.printBlockHex(ints);
+            encodeBlockLogger.printBlockHex(ints);
         }
 
-        Transformations.addRoundKey(block, keySchedule[0], logger);
+        RijndaelTransformations.addRoundKey(block, keySchedule[0], encodeBlockLogger);
 
         for (int i = 1; i < 10; i++) {
-            block = Transformations.subBytes(block, logger);
-            Transformations.shiftRows(block, logger);
-            Transformations.mixColumns(block, logger);
-            block = Transformations.addRoundKey(block, keySchedule[i], logger);
+            block = RijndaelTransformations.subBytes(block, encodeBlockLogger);
+            RijndaelTransformations.shiftRows(block, encodeBlockLogger);
+            RijndaelTransformations.mixColumns(block, encodeBlockLogger);
+            block = RijndaelTransformations.addRoundKey(block, keySchedule[i], encodeBlockLogger);
         }
 
-        block = Transformations.subBytes(block, logger);
-        Transformations.shiftRows(block, logger);
-        block = Transformations.addRoundKey(block, keySchedule[10], logger);
+        block = RijndaelTransformations.subBytes(block, encodeBlockLogger);
+        RijndaelTransformations.shiftRows(block, encodeBlockLogger);
+        block = RijndaelTransformations.addRoundKey(block, keySchedule[10], encodeBlockLogger);
 
         return block;
     }
 
-    public final int[][] getDecodedBlock(int[][] block, int[][] key, BlockLogger logger) {
-        int[][][] keySchedule = KeyTransformations.getKeyExpansion(key);
+    public final int[][] getDecodedBlock(int[][] block, int[][] key) {
+        int[][][] keySchedule = RijndaelKeyTransformations.getKeyExpansion(key);
 
-        logger.println("NEW BLOCK");
-        logger.println("KeySchedule: ");
+        decodeBlockLogger.println("NEW BLOCK");
+        decodeBlockLogger.println("KeySchedule: ");
 
         for (int[][] ints : keySchedule) {
-            logger.printBlockHex(ints);
+            decodeBlockLogger.printBlockHex(ints);
         }
 
         int[][][] reverseKeySchedule = RijndaelLowLevelOperations.reverseArray(keySchedule);
 
-        logger.println("InvKeySchedule: ");
+        decodeBlockLogger.println("InvKeySchedule: ");
 
         for (int[][] ints : reverseKeySchedule) {
-            logger.printBlockHex(ints);
+            decodeBlockLogger.printBlockHex(ints);
         }
 
-        block = InvTransformations.addRoundKey(block, reverseKeySchedule[0], logger);
-        InvTransformations.shiftRows(block, logger);
-        block = InvTransformations.subBytes(block, logger);
+        block = RijndaelInvTransformations.addRoundKey(block, reverseKeySchedule[0], decodeBlockLogger);
+        RijndaelInvTransformations.shiftRows(block, decodeBlockLogger);
+        block = RijndaelInvTransformations.subBytes(block, decodeBlockLogger);
 
         for (int i = 1; i < 10; i++) {
-            block = InvTransformations.addRoundKey(block, reverseKeySchedule[i], logger);
-            InvTransformations.mixColumns(block, logger);
-            InvTransformations.shiftRows(block, logger);
-            block = InvTransformations.subBytes(block, logger);
+            block = RijndaelInvTransformations.addRoundKey(block, reverseKeySchedule[i], decodeBlockLogger);
+            RijndaelInvTransformations.mixColumns(block, decodeBlockLogger);
+            RijndaelInvTransformations.shiftRows(block, decodeBlockLogger);
+            block = RijndaelInvTransformations.subBytes(block, decodeBlockLogger);
         }
 
-        block = InvTransformations.addRoundKey(block, reverseKeySchedule[10], logger);
+        block = RijndaelInvTransformations.addRoundKey(block, reverseKeySchedule[10], decodeBlockLogger);
 
         return block;
     }

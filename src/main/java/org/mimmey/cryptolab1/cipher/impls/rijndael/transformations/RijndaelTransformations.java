@@ -5,7 +5,7 @@ import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelMathO
 import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelSpecificOperations;
 import org.mimmey.cryptolab1.cipher.utils.io.BlockLogger;
 
-public class Transformations {
+public class RijndaelTransformations {
 
     public static int[][] addRoundKey(int[][] state, int[][] roundKey, BlockLogger logger) {
         state = RijndaelMathOperations.byteSumMatrices(state, roundKey);

@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Point {
-    int x;
-    int y;
+public class Curve {
+    int modulo;
+    Point point;
 
-    public static Point of(int x, int y) {
-        return new Point(x, y);
+    public static Curve of(int modulo, Point point) {
+        return new Curve(modulo, point);
     }
 }

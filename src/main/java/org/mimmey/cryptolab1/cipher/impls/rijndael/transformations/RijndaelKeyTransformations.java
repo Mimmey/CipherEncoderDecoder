@@ -7,7 +7,7 @@ import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelSpeci
 
 import java.util.Arrays;
 
-public class KeyTransformations {
+public class RijndaelKeyTransformations {
 
     public static int[][] getKeyFromString(String strKey) {
         int[] symbols = strKey.chars().toArray();

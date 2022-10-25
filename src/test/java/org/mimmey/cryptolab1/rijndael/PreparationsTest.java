@@ -1,19 +1,11 @@
 package org.mimmey.cryptolab1.rijndael;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mimmey.cryptolab1.cipher.RijndaelCipher;
-import org.mimmey.cryptolab1.cipher.utils.consts.RijndaelConsts;
+import org.mimmey.cryptolab1.cipher.impls.rijndael.util.operations.RijndaelDataBlocksOperations;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class PreparationsTest {
-
-    @BeforeAll
-    public static void setSBoxes() {
-        RijndaelCipher.setSBox(RijndaelConsts.SBOX);
-        RijndaelCipher.setInvSBox(RijndaelConsts.INV_SBOX);
-    }
 
     @Test
     public void checkSplitIntoBlocks() {
@@ -44,9 +36,9 @@ public class PreparationsTest {
                 }
         };
 
-        assertArrayEquals(expected, RijndaelCipher.Preparations.splitIntoBlocks(array));
+        assertArrayEquals(expected, RijndaelDataBlocksOperations.splitIntoBlocks(array));
     }
-    
+
     @Test
     public void checkUniteBlocks() {
         int[][][] blocks = new int[][][]{
@@ -76,6 +68,6 @@ public class PreparationsTest {
                 29, 30, 0, 0
         };
 
-        assertArrayEquals(expected, RijndaelCipher.Preparations.uniteBlocks(blocks));
+        assertArrayEquals(expected, RijndaelDataBlocksOperations.uniteBlocks(blocks));
     }
 }
