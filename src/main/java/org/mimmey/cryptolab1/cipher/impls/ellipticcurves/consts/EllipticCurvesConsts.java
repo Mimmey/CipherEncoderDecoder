@@ -2,6 +2,7 @@ package org.mimmey.cryptolab1.cipher.impls.ellipticcurves.consts;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Curve;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Point;
 
 import java.util.AbstractMap;
@@ -9,7 +10,9 @@ import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EllipticCurvesConsts {
-    private final static Map<Character, Point> ALPHABET = Map.ofEntries(
+    
+    public static final Curve curve = Curve.of(751, Point.of(-1, 1));
+    public static final Map<Character, Point> ALPHABET = Map.ofEntries(
             new AbstractMap.SimpleImmutableEntry<>(' ', Point.of(33, 355)),
             new AbstractMap.SimpleImmutableEntry<>('!', Point.of(22, 396)),
             new AbstractMap.SimpleImmutableEntry<>('\"', Point.of(34, 74)),

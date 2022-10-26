@@ -10,7 +10,7 @@ import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 import org.mimmey.cryptolab1.cipher.utils.io.BlockLogger;
 
 
-public abstract class RijndaelCipherMode implements Cipher<RijndaelKey> {
+public abstract class RijndaelCipherMode implements Cipher<String, String, RijndaelKey, RijndaelKey> {
 
     protected BlockLogger encodeBlockLogger;
     protected BlockLogger decodeBlockLogger;

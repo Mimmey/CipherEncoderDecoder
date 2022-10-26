@@ -8,7 +8,7 @@ import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 import java.util.Arrays;
 
 @NoArgsConstructor
-public class CeasarWithKeywordCipher implements Cipher<CeasarWithKeywordKey> {
+public class CeasarWithKeywordCipher implements Cipher<String, String, CeasarWithKeywordKey, CeasarWithKeywordKey> {
 
     private char[] getEncodedAlphabet(CeasarWithKeywordKey ceasarWithKeywordKey) {
         boolean[] isUsed = new boolean[CeasarWithKeywordConsts.ALPHABET_POWER];

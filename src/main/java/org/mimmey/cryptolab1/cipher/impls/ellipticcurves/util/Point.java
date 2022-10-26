@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Point {
-    int x;
-    int y;
+
+    private int x;
+    private int y;
 
     public static Point of(int x, int y) {
         return new Point(x, y);

@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Fraction {
-    int numerator;
-    int denominator;
+
+    private int numerator;
+    private int denominator;
 
     public static Fraction of(int numerator, int denominator) {
         return new Fraction(numerator, denominator);
