@@ -1,6 +1,6 @@
 package org.mimmey.cryptolab1.cipher.impls.ellipticcurves;
 
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.algorithm.EllipticCurvesDecoding;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.algorithm.EllipticCurvesEncoding;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.cipherkey.EllipticCurvesClosedKey;
@@ -13,21 +13,17 @@ import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 
 import java.util.List;
 
-@AllArgsConstructor
+@NoArgsConstructor
 public class EllipticCurvesCipher implements Cipher<String, List<PointPair>, EllipticCurvesOpenKey, EllipticCurvesClosedKey> {
 
-    private final EllipticCurvesEncoding encoding;
-    private final EllipticCurvesDecoding decoding;
-
-    {
-        this.encoding = new EllipticCurvesEncoding(EllipticCurvesConsts.curve);
-        this.decoding = new EllipticCurvesDecoding(EllipticCurvesConsts.curve);
-    }
+    private final EllipticCurvesEncoding encoding = new EllipticCurvesEncoding(EllipticCurvesConsts.curve);
+    private final EllipticCurvesDecoding decoding = new EllipticCurvesDecoding(EllipticCurvesConsts.curve);
 
     @Override
     public String encode(String text, EllipticCurvesOpenKey cipherKey) {
         List<Point> textPoints = EllipticCurvesLowLevelOperations.stringToPointList(text);
         List<PointPair> encodedPointPairs = encoding.getCipherPointPairs(textPoints, cipherKey);
+
         return EllipticCurvesLowLevelOperations.pointPairListToString(encodedPointPairs);
     }
 

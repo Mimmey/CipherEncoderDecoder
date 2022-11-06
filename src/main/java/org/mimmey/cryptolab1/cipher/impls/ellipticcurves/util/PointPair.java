@@ -14,4 +14,9 @@ public class PointPair {
     public static PointPair of(Point p1, Point p2) {
         return new PointPair(p1, p2);
     }
+
+    @Override
+    public String toString() {
+        return "{" + this.point1.toString() + "," + this.point2.toString() + "}";
+    }
 }

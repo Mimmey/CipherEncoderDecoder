@@ -8,22 +8,22 @@ import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.PointPair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class EllipticCurvesLowLevelOperations {
 
-    public static List<Point> stringToPointList(String s) {
-        List<Point> pointList = new ArrayList<>();
+    public static List<Integer> findAllNumbersInString(String str) {
+        List<Integer> allNumbers = new ArrayList<>();
+        Matcher matcher = EllipticCurvesConsts.numberPattern.matcher(str);
 
-        for (char c : s.toCharArray()) {
-            pointList.add(charToPoint(c));
+        while (matcher.find()) {
+            for (int i = 0; i <= matcher.groupCount(); i++) {
+                allNumbers.add(Integer.parseInt(matcher.group(i)));
+            }
         }
 
-        return pointList;
-    }
-
-    public static Point charToPoint(char c) {
-        return EllipticCurvesConsts.ALPHABET.get(c);
+        return allNumbers;
     }
 
     public static String pointListToString(List<Point> pointList) {
@@ -51,8 +51,40 @@ public class EllipticCurvesLowLevelOperations {
 
         for (PointPair pointPair : pointPairList) {
             stringBuilder.append(pointPair.toString());
+            stringBuilder.append("\n");
         }
 
         return stringBuilder.toString();
+    }
+
+    public static List<Point> stringToPointList(String s) {
+        List<Point> pointList = new ArrayList<>();
+
+        for (char c : s.toCharArray()) {
+            pointList.add(charToPoint(c));
+        }
+
+        return pointList;
+    }
+
+    public static Point charToPoint(char c) {
+        return EllipticCurvesConsts.ALPHABET.get(c);
+    }
+
+    public static List<PointPair> pointListStringToPointPairList(String str) {
+        List<PointPair> pointPairList = new ArrayList<>();
+
+        List<Integer> numbersInString = findAllNumbersInString(str);
+
+        assert(numbersInString.size() % 4 == 0);
+
+        for (int i = 0; i < numbersInString.size(); i += 4) {
+            pointPairList.add(PointPair.of(
+                    Point.of(numbersInString.get(i), numbersInString.get(i + 1)),
+                    Point.of(numbersInString.get(i + 2), numbersInString.get(i + 3))
+            ));
+        }
+
+        return pointPairList;
     }
 }

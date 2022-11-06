@@ -1,6 +1,7 @@
 package org.mimmey.cryptolab1.cipher.impls.ellipticcurves.operations;
 
 import lombok.AllArgsConstructor;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.consts.EllipticCurvesConsts;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Curve;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Fraction;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Point;
@@ -8,17 +9,21 @@ import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Point;
 @AllArgsConstructor
 public class EllipticCurvesMathOperations {
 
-    private Curve curve;
+    private final Curve curve;
 
     public Point pointSelfMultiplication(Point p, int times) {
         Point result = Point.of(p.getX(), p.getY());
+
+        if (times == 0) {
+            return curve.getPoint();
+        }
 
         for (int i = 1; i < Math.abs(times); i++) {
             result = pointPlusPoint(result, p);
         }
 
         if (times < 0) {
-            result.setY(-1 * result.getY());
+            result = getInvertedPoint(result);
         }
 
         return result;
@@ -32,7 +37,7 @@ public class EllipticCurvesMathOperations {
         int lambda = p1.equals(p2) ? findLambdaSelf(p1) : findLambdaOther(p1, p2);
 
         int xResult = findModuloEqual(
-                Fraction.of(lambda * lambda - p1.getX() - p2.getY(), 1),
+                Fraction.of(lambda * lambda - p1.getX() - p2.getX(), 1),
                 curve.getModulo());
 
         int yResult = findModuloEqual(
@@ -42,7 +47,6 @@ public class EllipticCurvesMathOperations {
         return Point.of(xResult, yResult);
     }
 
-
     private int findLambdaOther(Point p1, Point p2) {
         return findModuloEqual(
                 Fraction.of((p2.getY() - p1.getY()), (p2.getX() - p1.getX())),
@@ -51,7 +55,7 @@ public class EllipticCurvesMathOperations {
 
     private int findLambdaSelf(Point p) {
         return findModuloEqual(
-                Fraction.of(3 * p.getX() * p.getX() + curve.getPoint().getX(), 2 * p.getY()),
+                Fraction.of(3 * p.getX() * p.getX() + curve.getA(), 2 * p.getY()),
                 curve.getModulo());
     }
 
@@ -71,5 +75,11 @@ public class EllipticCurvesMathOperations {
         }
 
         return 0;
+    }
+
+    private Point getInvertedPoint(Point point) {
+        return Point.of(point.getX(),findModuloEqual(Fraction.of(
+                -1 * point.getY(),
+                1), curve.getModulo()));
     }
 }

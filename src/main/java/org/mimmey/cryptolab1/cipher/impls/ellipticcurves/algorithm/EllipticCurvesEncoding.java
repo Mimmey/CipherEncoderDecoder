@@ -20,6 +20,7 @@ public class EllipticCurvesEncoding {
     public List<PointPair> getCipherPointPairs(List<Point> points, EllipticCurvesOpenKey key) {
         List<PointPair> cipherPointList = new ArrayList<>();
 
+        assert(key.getRandomNumberList().size() == points.size());
         for (int i = 0; i < key.getRandomNumberList().size(); i++) {
             cipherPointList.add(getCipherPointPair(key.getRandomNumberList().get(i),
                     points.get(i),

@@ -6,13 +6,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum EllipticCurvesPaths {
-    ENCODE_INPUT("src/main/resources/textfiles/ceasarwithkeyword/encode/input.txt"),
-    ENCODE_OUTPUT("src/main/resources/textfiles/ceasarwithkeyword/encode/output.txt"),
-    ENCODE_EXPECTED("src/main/resources/textfiles/ceasarwithkeyword/encode/expected.txt"),
+    ENCODE_INPUT("src/main/resources/textfiles/ellipticcurves/encode/input.txt"),
+    ENCODE_OUTPUT("src/main/resources/textfiles/ellipticcurves/encode/output.txt"),
+    ENCODE_EXPECTED("src/main/resources/textfiles/ellipticcurves/encode/expected.txt"),
 
-    DECODE_INPUT("src/main/resources/textfiles/ceasarwithkeyword/decode/input.txt"),
-    DECODE_OUTPUT("src/main/resources/textfiles/ceasarwithkeyword/decode/output.txt"),
-    DECODE_EXPECTED("src/main/resources/textfiles/ceasarwithkeyword/decode/expected.txt");
+    DECODE_INPUT("src/main/resources/textfiles/ellipticcurves/decode/input.txt"),
+    DECODE_OUTPUT("src/main/resources/textfiles/ellipticcurves/decode/output.txt"),
+    DECODE_EXPECTED("src/main/resources/textfiles/ellipticcurves/decode/expected.txt");
 
     private final String path;
 }

@@ -1,22 +1,26 @@
 package org.mimmey.cryptolab1.main.ellipticcurvescipher;
 
-import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.CeasarWithKeywordCipher;
-import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.cipherkey.CeasarWithKeywordKey;
-import org.mimmey.cryptolab1.cipher.impls.ceasarwithkeyword.paths.CeasarWithKeywordPaths;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.EllipticCurvesCipher;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.cipherkey.EllipticCurvesClosedKey;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.operations.EllipticCurvesLowLevelOperations;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.paths.EllipticCurvesPaths;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.PointPair;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceReader;
 import org.mimmey.cryptolab1.cipher.utils.io.ResourceWriter;
 
+import java.util.List;
+
 public class Decode {
     public static void main(String[] args) {
-        int shift = Integer.parseInt(args[0]);
+        int secretNumber = Integer.parseInt(args[0]);
 
-        String key = args[1];
+        String inputPath = args.length > 1 ? args[1] : EllipticCurvesPaths.DECODE_INPUT.getPath();
+        String outputPath = args.length > 2 ? args[2] : EllipticCurvesPaths.DECODE_OUTPUT.getPath();
 
-        String inputPath = args.length > 2 ? args[2] : CeasarWithKeywordPaths.DECODE_INPUT.getPath();
-        String outputPath = args.length > 3 ? args[3] : CeasarWithKeywordPaths.DECODE_OUTPUT.getPath();
-
-        CeasarWithKeywordCipher cipher = new CeasarWithKeywordCipher();
+        EllipticCurvesCipher cipher = new EllipticCurvesCipher();
         String text = ResourceReader.readFromFile(inputPath);
-        ResourceWriter.writeToFile(cipher.decode(text, new CeasarWithKeywordKey(shift, key)), outputPath);
+        List<PointPair> decodingUnit = EllipticCurvesLowLevelOperations.pointListStringToPointPairList(text);
+        ResourceWriter.writeToFile(cipher.decode(decodingUnit, new EllipticCurvesClosedKey(secretNumber)), outputPath);
+
     }
 }

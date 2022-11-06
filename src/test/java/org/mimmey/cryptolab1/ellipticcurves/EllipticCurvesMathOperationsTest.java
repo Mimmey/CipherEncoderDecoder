@@ -1,9 +1,11 @@
 package org.mimmey.cryptolab1.ellipticcurves;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.consts.EllipticCurvesConsts;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.operations.EllipticCurvesMathOperations;
+import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Curve;
 import org.mimmey.cryptolab1.cipher.impls.ellipticcurves.util.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,6 +26,16 @@ public class EllipticCurvesMathOperationsTest {
         Point found = mathOperations.pointSelfMultiplication(point, 3);
 
         Point expected = Point.of(56, 419);
+        assertEquals(expected, found);
+    }
+
+    @Test
+    public void checkPointSelfMultiplicationNegative() {
+        Point point = Point.of(56, 419);
+
+        Point found = mathOperations.pointSelfMultiplication(point, -45);
+
+        Point expected = Point.of(175, 559);
         assertEquals(expected, found);
     }
 
