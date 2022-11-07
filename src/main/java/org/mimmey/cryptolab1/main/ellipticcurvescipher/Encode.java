@@ -22,6 +22,7 @@ public class Encode {
 
         EllipticCurvesCipher cipher = new EllipticCurvesCipher();
         String text = ResourceReader.readFromFile(inputPath);
-        ResourceWriter.writeToFile(cipher.encode(text, new EllipticCurvesOpenKey(point, randomIntSequence)), outputPath);
+        ResourceWriter.writeToFile(cipher
+                .encode(text, new EllipticCurvesOpenKey(point, randomIntSequence)), outputPath);
     }
 }

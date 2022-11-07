@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class EllipticCurvesClosedKey extends EllipticCurvesKey {
-    private int secretNumber;
+    private final int secretNumber;
 }

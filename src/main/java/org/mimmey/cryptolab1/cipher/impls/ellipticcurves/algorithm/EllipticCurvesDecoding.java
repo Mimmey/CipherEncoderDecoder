@@ -17,7 +17,8 @@ public class EllipticCurvesDecoding {
         this.mathOperations = new EllipticCurvesMathOperations(curve);
     }
 
-    public List<Point> getDecodedPoints(List<PointPair> encodedPointPairs, EllipticCurvesClosedKey key) {
+    public List<Point> getDecodedPoints(List<PointPair> encodedPointPairs,
+                                        EllipticCurvesClosedKey key) {
         List<Point> encodedPointList = new ArrayList<>();
 
         for (PointPair pointPair : encodedPointPairs) {
@@ -30,7 +31,8 @@ public class EllipticCurvesDecoding {
     private Point getDecodedPoint(PointPair encodedPointPair, int secretNumber) {
         return mathOperations.pointPlusPoint(
                 encodedPointPair.getPoint2(),
-                mathOperations.pointSelfMultiplication(encodedPointPair.getPoint1(), -1 * secretNumber)
+                mathOperations.pointSelfMultiplication(encodedPointPair.getPoint1(),
+                        -1 * secretNumber)
         );
     }
 }

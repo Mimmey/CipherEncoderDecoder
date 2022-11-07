@@ -14,10 +14,13 @@ import org.mimmey.cryptolab1.cipher.interfaces.Cipher;
 import java.util.List;
 
 @NoArgsConstructor
-public class EllipticCurvesCipher implements Cipher<String, List<PointPair>, EllipticCurvesOpenKey, EllipticCurvesClosedKey> {
+public class EllipticCurvesCipher implements Cipher<String, List<PointPair>,
+        EllipticCurvesOpenKey, EllipticCurvesClosedKey> {
 
-    private final EllipticCurvesEncoding encoding = new EllipticCurvesEncoding(EllipticCurvesConsts.curve);
-    private final EllipticCurvesDecoding decoding = new EllipticCurvesDecoding(EllipticCurvesConsts.curve);
+    private final EllipticCurvesEncoding encoding =
+            new EllipticCurvesEncoding(EllipticCurvesConsts.curve);
+    private final EllipticCurvesDecoding decoding =
+            new EllipticCurvesDecoding(EllipticCurvesConsts.curve);
 
     @Override
     public String encode(String text, EllipticCurvesOpenKey cipherKey) {

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EllipticCurvesConsts {
     
-    public static final Curve curve = Curve.of(751, Point.of(-1, 1), -1, 1);
+    public static final Curve curve = Curve.of(751, Point.of(0, 1), -1, 1);
 
     public static final Pattern numberPattern = Pattern.compile("\\d+");
 

@@ -12,8 +12,10 @@ import java.util.List;
 public class EllipticCurvesEncoding {
 
     private final EllipticCurvesMathOperations mathOperations;
+    private final Curve curve;
 
     public EllipticCurvesEncoding(Curve curve) {
+        this.curve = curve;
         this.mathOperations = new EllipticCurvesMathOperations(curve);
     }
 
@@ -31,7 +33,7 @@ public class EllipticCurvesEncoding {
     }
 
     private PointPair getCipherPointPair(int randomNumber, Point point, Point openKey) {
-        Point firstPoint = getFirstCipherPoint(randomNumber, point);
+        Point firstPoint = getFirstCipherPoint(randomNumber, curve.getPoint());
         Point secondPoint = getSecondCipherPoint(point, randomNumber, openKey);
 
         return PointPair.of(firstPoint, secondPoint);

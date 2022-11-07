@@ -19,8 +19,10 @@ public class Decode {
 
         EllipticCurvesCipher cipher = new EllipticCurvesCipher();
         String text = ResourceReader.readFromFile(inputPath);
-        List<PointPair> decodingUnit = EllipticCurvesLowLevelOperations.pointListStringToPointPairList(text);
-        ResourceWriter.writeToFile(cipher.decode(decodingUnit, new EllipticCurvesClosedKey(secretNumber)), outputPath);
+        List<PointPair> decodingUnit = EllipticCurvesLowLevelOperations
+                .pointListStringToPointPairList(text);
+        ResourceWriter.writeToFile(cipher
+                .decode(decodingUnit, new EllipticCurvesClosedKey(secretNumber)), outputPath);
 
     }
 }
